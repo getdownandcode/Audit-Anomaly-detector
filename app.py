@@ -80,12 +80,12 @@ st.caption(f"MAD: {mad:.4f} ({verdict}) · Chi-square p-value: {p_value:.3g}")
 st.header("3. Highest risk transactions")
 columns = ["txn_id", "Time", "Amount", "risk", "label", "reasons"] + (["Class"] if "Class" in scored else [])
 flagged = scored.loc[scored["reasons"].ne("")].head(top_n)
-st.dataframe(flagged[columns], use_container_width=True, hide_index=True)
+st.dataframe(flagged[columns], width="stretch", hide_index=True)
 
 if "Class" in scored:
     st.header("4. Evaluation")
     metrics = evaluate(scored)
-    st.dataframe(pd.DataFrame(metrics).T, use_container_width=True)
+    st.dataframe(pd.DataFrame(metrics).T, width="stretch")
 
 st.header("5. Download")
 csv = flagged[columns].to_csv(index=False).encode("utf-8")

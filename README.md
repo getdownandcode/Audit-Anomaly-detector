@@ -27,7 +27,15 @@ For automatic dataset download, configure Kaggle credentials using Kaggle's [API
 
 ## Results
 
-Metrics should be generated from the downloaded real dataset. They are not yet reported here because this environment could not reach Kaggle or GitHub to download the source data; no numbers are estimated or fabricated. When the dataset is available, the app displays precision@500, recall@500, ROC-AUC, and PR-AUC for the combined score, rules only, and Isolation Forest only. Precision@500 and PR-AUC are especially useful with this class imbalance.
+On the real Kaggle dataset, `prepare()` retains 282,982 rows with positive amounts, including 465 labeled frauds. Rows with zero or missing amounts are excluded from scoring. The following metrics are from `evaluate()` on those retained rows (`k=500`):
+
+| Method | Precision@500 | Recall@500 | ROC-AUC | PR-AUC |
+| --- | ---: | ---: | ---: | ---: |
+| Combined | 0.256 | 0.2753 | 0.9148 | 0.1921 |
+| Rules only | 0.004 | 0.0043 | 0.5450 | 0.0022 |
+| Isolation Forest only | 0.324 | 0.3484 | 0.9510 | 0.1948 |
+
+The combined heuristic did not outperform Isolation Forest alone on this dataset. Precision@500 and PR-AUC are more informative than accuracy with this class imbalance. The Streamlit app shows the full metrics table and the Benford chart; launch it locally to view the current app screenshot.
 
 ## Limitations
 
